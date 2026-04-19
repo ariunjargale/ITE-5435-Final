@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}">Appointment Form</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 40px;
+}
+
+label {
+	display: block;
+	margin-top: 10px;
+}
+
+input, select, button, textarea {
+	margin-top: 4px;
+}
+
+button {
+	margin-top: 12px;
+}
+
+.message {
+	margin-top: 12px;
+	color: #9b1c1c;
+}
+
+.top-links a {
+	margin-right: 12px;
+}
+</style>
+</head>
+<body>
+	<h1 th:text="${pageTitle}">Appointment Form</h1>
+	<p>Enter appointment information and submit the form.</p>
+
+	<p class="top-links">
+		<a th:href="@{/appointments}">Back to Appointment List</a>
+	</p>
+
+	<div class="message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+	<div class="message" th:if="${doctorLoadMessage}"
+		th:text="${doctorLoadMessage}"></div>
+
+	<form th:action="${formAction}" th:object="${appointment}"
+		method="post">
+		<p th:if="${appointment.appointmentId != null}">
+			<strong>Appointment ID:</strong> <span
+				th:text="${appointment.appointmentId}"></span>
+		</p>
+
+		<label for="appointmentNumber">Appointment Number</label> <input
+			id="appointmentNumber" type="text" th:field="*{appointmentNumber}"
+			required> <label for="appointmentType">Appointment
+			Type</label> <input id="appointmentType" type="text"
+			th:field="*{appointmentType}" required> <label
+			for="appointmentDate">Appointment Date</label> <input
+			id="appointmentDate" type="date" th:field="*{appointmentDate}">
+
+		<label for="appointmentDescription">Description</label>
+		<textarea id="appointmentDescription"
+			th:field="*{appointmentDescription}" rows="4" cols="40"></textarea>
+
+		<label for="appointmentDoctorId">Doctor</label> <select
+			id="appointmentDoctorId" th:field="*{appointmentDoctorId}">
+			<option value="">No doctor selected</option>
+			<option th:each="doctor : ${doctors}" th:value="${doctor.doctorsId}"
+				th:text="${doctor.doctorsName + ' (ID: ' + doctor.doctorsId + ')'}"></option>
+		</select>
+
+		<button type="submit" th:text="${submitLabel}">Save
+			Appointment</button>
+	</form>
+</body>
+</html>

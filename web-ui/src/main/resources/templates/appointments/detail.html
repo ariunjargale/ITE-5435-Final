@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appointment Details</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 40px;
+}
+
+table {
+	margin-top: 16px;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 6px 10px;
+	text-align: left;
+}
+
+.actions {
+	margin-top: 16px;
+}
+
+.actions a, .actions form {
+	display: inline-block;
+	margin-right: 12px;
+}
+
+.actions form button {
+	margin-top: 0;
+}
+</style>
+</head>
+<body>
+	<h1>Appointment Details</h1>
+	<p>Detailed appointment information.</p>
+
+	<table>
+		<tbody>
+			<tr>
+				<th>Appointment ID</th>
+				<td th:text="${appointment.appointmentId}"></td>
+			</tr>
+			<tr>
+				<th>Number</th>
+				<td th:text="${appointment.appointmentNumber}"></td>
+			</tr>
+			<tr>
+				<th>Type</th>
+				<td th:text="${appointment.appointmentType}"></td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td th:text="${appointment.appointmentDate}"></td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td th:text="${appointment.appointmentDescription}"></td>
+			</tr>
+			<tr>
+				<th>Doctor</th>
+				<td
+					th:text="${appointment.appointmentDoctorId != null ? appointment.appointmentDoctorId : 'Not assigned'}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="actions">
+		<a
+			th:href="@{/appointments/{id}/edit(id=${appointment.appointmentId})}">Edit</a>
+		<form
+			th:action="@{/appointments/{id}/delete(id=${appointment.appointmentId})}"
+			method="post">
+			<button type="submit">Delete</button>
+		</form>
+		<a th:href="@{/appointments}">Back to List</a>
+	</div>
+</body>
+</html>

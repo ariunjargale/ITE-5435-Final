@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}">Doctor Form</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 40px;
+}
+
+label {
+	display: block;
+	margin-top: 10px;
+}
+
+input, button {
+	margin-top: 4px;
+}
+
+button {
+	margin-top: 12px;
+}
+
+.message {
+	margin-top: 12px;
+	color: red;
+}
+
+.top-links a {
+	margin-right: 12px;
+}
+</style>
+</head>
+<body>
+	<h1 th:text="${pageTitle}">Doctor Form</h1>
+	<p>Enter doctor information and submit the form.</p>
+
+	<p class="top-links">
+		<a th:href="@{/doctors}">Back to Doctor List</a>
+	</p>
+
+	<div class="message" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+	<form th:action="${formAction}" th:object="${doctor}" method="post">
+		<p th:if="${doctor.doctorsId != null}">
+			<strong>Doctor ID:</strong> <span th:text="${doctor.doctorsId}"></span>
+		</p>
+
+		<label for="doctorsName">Doctor Name</label> <input id="doctorsName"
+			type="text" th:field="*{doctorsName}" required> <label
+			for="doctorsMobile">Mobile</label> <input id="doctorsMobile"
+			type="text" th:field="*{doctorsMobile}" required> <label
+			for="doctorsEmail">Email</label> <input id="doctorsEmail"
+			type="email" th:field="*{doctorsEmail}" required> <label
+			for="doctorsPassword">Password</label> <input id="doctorsPassword"
+			type="text" th:field="*{doctorsPassword}" required> <label
+			for="doctorsAddress">Address</label> <input id="doctorsAddress"
+			type="text" th:field="*{doctorsAddress}"> <label
+			for="doctorsUsername">Username</label> <input id="doctorsUsername"
+			type="text" th:field="*{doctorsUsername}" required>
+
+		<button type="submit" th:text="${submitLabel}">Save Doctor</button>
+	</form>
+</body>
+</html>

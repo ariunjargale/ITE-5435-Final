@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 40px;
+}
+
+ul {
+	margin-top: 16px;
+	padding-left: 20px;
+}
+
+li {
+	margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+	<h1>Hospital Management System</h1>
+
+	<ul>
+		<li><a th:href="@{/patients}">Patient Management</a></li>
+		<li><a th:href="@{/doctors}">Doctor Management</a></li>
+		<li><a th:href="@{/appointments}">Appointment Management</a></li>
+	</ul>
+</body>
+</html>

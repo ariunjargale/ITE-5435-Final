@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Details</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 40px;
+}
+
+table {
+	margin-top: 16px;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 6px 10px;
+	text-align: left;
+}
+
+.actions {
+	margin-top: 16px;
+}
+
+.actions a, .actions form {
+	display: inline-block;
+	margin-right: 12px;
+}
+
+.actions form button {
+	margin-top: 0;
+}
+</style>
+</head>
+<body>
+	<h1>Patient Details</h1>
+	<p>Detailed patient information.</p>
+
+	<table>
+		<tbody>
+			<tr>
+				<th>Patient ID</th>
+				<td th:text="${patient.patientId}"></td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td th:text="${patient.patientName}"></td>
+			</tr>
+			<tr>
+				<th>Mobile</th>
+				<td th:text="${patient.patientMobile}"></td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td th:text="${patient.patientEmail}"></td>
+			</tr>
+			<tr>
+				<th>Password</th>
+				<td th:text="${patient.patientPassword}"></td>
+			</tr>
+			<tr>
+				<th>Address</th>
+				<td th:text="${patient.patientAddress}"></td>
+			</tr>
+			<tr>
+				<th>Username</th>
+				<td th:text="${patient.patientUsername}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="actions">
+		<a th:href="@{/patients/{id}/edit(id=${patient.patientId})}">Edit</a>
+		<form th:action="@{/patients/{id}/delete(id=${patient.patientId})}"
+			method="post">
+			<button type="submit">Delete</button>
+		</form>
+		<a th:href="@{/patients}">Back to List</a>
+	</div>
+</body>
+</html>

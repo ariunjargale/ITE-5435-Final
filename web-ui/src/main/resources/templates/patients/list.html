@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patients</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 40px;
+}
+
+form {
+	margin-top: 12px;
+}
+
+label {
+	display: block;
+	margin-top: 10px;
+}
+
+input, button {
+	margin-top: 4px;
+}
+
+button, .link-button, .action-link {
+	margin-top: 12px;
+}
+
+.message {
+	margin-top: 12px;
+	color: green;
+}
+
+.error {
+	color: red;
+}
+
+table {
+	margin-top: 16px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 6px 10px;
+	text-align: left;
+}
+
+.actions {
+	white-space: nowrap;
+}
+
+.inline-form {
+	display: inline;
+}
+
+.inline-form button {
+	margin-top: 0;
+}
+
+	.top-links a {
+		margin-right: 12px;
+	}
+	</style>
+</head>
+<body>
+	<h1>Patients</h1>
+	<p>View, search, add, update, and delete patient records.</p>
+
+	<div class="top-links">
+		<a th:href="@{/}">Home</a>
+		<a th:href="@{/patients/new}">Add Patient</a>
+	</div>
+
+	<div class="message" th:if="${successMessage}"
+		th:text="${successMessage}"></div>
+	<div class="message error" th:if="${errorMessage}"
+		th:text="${errorMessage}"></div>
+
+	<form th:action="@{/patients}" method="get">
+		<label for="keyword">Search Patients</label> <input id="keyword"
+			name="keyword" type="text" th:value="${keyword}"
+			placeholder="Search by id, name, email, mobile, address, username">
+		<button type="submit">Search</button>
+		<a th:href="@{/patients}">Clear</a>
+	</form>
+
+	<h2>Patient List</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Patient ID</th>
+				<th>Name</th>
+				<th>Mobile</th>
+				<th>Email</th>
+				<th>Address</th>
+				<th>Username</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="patient : ${patients}">
+				<td th:text="${patient.patientId}"></td>
+				<td th:text="${patient.patientName}"></td>
+				<td th:text="${patient.patientMobile}"></td>
+				<td th:text="${patient.patientEmail}"></td>
+				<td th:text="${patient.patientAddress}"></td>
+				<td th:text="${patient.patientUsername}"></td>
+				<td class="actions"><a
+					th:href="@{/patients/{id}(id=${patient.patientId})}">View</a> <a
+					th:href="@{/patients/{id}/edit(id=${patient.patientId})}">Edit</a>
+					<form class="inline-form"
+						th:action="@{/patients/{id}/delete(id=${patient.patientId})}"
+						method="post">
+						<button type="submit">Delete</button>
+					</form></td>
+			</tr>
+			<tr th:if="${#lists.isEmpty(patients)}">
+				<td colspan="7">No patients found.</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
